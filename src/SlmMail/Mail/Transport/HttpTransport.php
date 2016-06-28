@@ -52,6 +52,11 @@ class HttpTransport implements TransportInterface
     protected $service;
 
     /**
+     * @var mixed The response from sending a message
+     */
+    protected $response;
+
+    /**
      * @param MailServiceInterface $service
      */
     public function __construct(MailServiceInterface $service)
@@ -64,6 +69,16 @@ class HttpTransport implements TransportInterface
      */
     public function send(Message $message)
     {
-        $this->service->send($message);
+        $this->response = $this->service->send($message);
+    }
+
+    /**
+     * Retrieve the response from sending the last message
+     *
+     * @return mixed
+     */
+    public function getLastResponse()
+    {
+        return $this->response;
     }
 }
